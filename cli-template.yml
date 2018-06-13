@@ -1,0 +1,7 @@
+build:
+  - echo build!
+files: # list the files to merge
+  - .gitignore
+  - main.pl
+main: main.pl
+command: perl main.pl
