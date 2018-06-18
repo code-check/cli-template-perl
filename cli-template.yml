@@ -1,7 +1,19 @@
 build:
-  - echo build!
-files: # list the files to merge
-  - .gitignore
+  - carton install
+
+# list the files to merge
+files:
   - main.pl
+  - cpanfile
+
+# specify the file which will be opened by default in web editor
 main: main.pl
-command: perl main.pl
+
+# command to run the code
+# `carton exec` is required to load modules installed by carton
+command: carton exec perl main.pl
+
+envConf:
+  imageName: givery/track-perl-5
+  cacheDirs:
+    - /root/.cpanm

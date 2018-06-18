@@ -24,11 +24,29 @@ print(result);
 ```
 
 ## 外部ライブラリの追加方法
-外部ライブラリを使用する場合は以下の手順で実施してください。
 
-- [requirements.txt](requirements.txt)にライブラリ名とバージョンを記述
-- 例:   
-  ```
-  numpy==1.11.0
-  requests==2.12.4
-  ```
+外部ライブラリをインストールする場合には用意された _[cpanfile](./cpanfile)_ に依存関係を記載してください。
+**[Carton](https://github.com/perl-carton/carton)** を使った外部ライブラリのインストールがサポートされています。
+
+次の [cpanfile のサンプル](https://metacpan.org/pod/cpanfile#SYNOPSIS) が動作する事は確認されています。
+
+```cpanfile
+requires 'Plack', '1.0'; # 1.0 or newer
+requires 'JSON', '>= 2.00, < 2.80';
+ 
+recommends 'JSON::XS', '2.0';
+conflicts 'JSON', '< 1.0';
+ 
+on 'test' => sub {
+      requires 'Test::More', '>= 0.96, < 2.0';
+        recommends 'Test::TCP', '1.12';
+};
+ 
+on 'develop' => sub {
+      recommends 'Devel::NYTProf';
+};
+ 
+feature 'sqlite', 'SQLite support' => sub {
+      recommends 'DBD::SQLite';
+};
+```

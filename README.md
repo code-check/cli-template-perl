@@ -24,11 +24,29 @@ print("text to output");
 ```
 
 ## Install External Libraries
-If you want to use external libraries, do the following:
 
-- Write the library name and version in [requirements.txt](requirements.txt)
-- Example:   
-```
-numpy==1.11.0
-requests==2.12.4
+To install external libraries, write dependencies in _[cpanfile](./cpanfile)_.
+Dependencies will be install by using **[Carton](https://github.com/perl-carton/carton)**.
+
+Following sample [from cpanfile](https://metacpan.org/pod/cpanfile#SYNOPSIS) has been verified to installs dependencies as expected.
+
+```cpanfile
+requires 'Plack', '1.0'; # 1.0 or newer
+requires 'JSON', '>= 2.00, < 2.80';
+ 
+recommends 'JSON::XS', '2.0';
+conflicts 'JSON', '< 1.0';
+ 
+on 'test' => sub {
+      requires 'Test::More', '>= 0.96, < 2.0';
+        recommends 'Test::TCP', '1.12';
+};
+ 
+on 'develop' => sub {
+      recommends 'Devel::NYTProf';
+};
+ 
+feature 'sqlite', 'SQLite support' => sub {
+      recommends 'DBD::SQLite';
+};
 ```
